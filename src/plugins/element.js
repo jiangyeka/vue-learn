@@ -1,4 +1,6 @@
 import Vue from 'vue'
-import { Button } from 'element-ui'
+import { Message, Button, Form, FormItem, Input } from 'element-ui'
 
-Vue.use(Button)
+Vue.use(Button, Form, FormItem, Input)
+
+Vue.prototype.$message = Message
