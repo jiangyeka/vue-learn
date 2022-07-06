@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, reactive, ref, toRefs } from "vue"
+import { computed, onMounted, onRenderTriggered, onUpdated, reactive, ref, toRefs } from "vue"
 interface DataProps {
   count: number;
   doubleCount: number;
@@ -19,10 +19,21 @@ export default {
   //     count,
   //     doubleCount,
   //     increaseOne
-  //   }
+  //   }  
   // }
   setup() {
-    const clickCountData:DataProps = reactive({
+    onMounted(() => {
+      console.log('mounted');
+    })
+    onUpdated(() => {
+      console.log('updated');
+
+    })
+    onRenderTriggered((event) => {
+      console.log(event);
+
+    })
+    const clickCountData: DataProps = reactive({
       count: 0,
       increaseOne: () => { clickCountData.count++ },
       doubleCount: computed(() => clickCountData.count * 2)
