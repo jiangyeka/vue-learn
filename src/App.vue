@@ -1,7 +1,12 @@
 <script lang="ts">
-import { computed, onMounted, onRenderTriggered, onUpdated, reactive, ref, toRefs, watch, onUnmounted } from "vue"
+import { computed, onMounted, onRenderTriggered, onUpdated, defineComponent, reactive, ref, toRefs, watch, onUnmounted } from "vue"
 import useGetMouseAxis from './hooks/useGetMouseAxis'
 import useUrlLoader from './hooks/useUrlLoader'
+const component = defineComponent({
+  data() {
+    return {}
+  }
+})
 export default {
   name: 'App',
   setup() {
