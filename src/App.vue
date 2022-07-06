@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, onMounted, onRenderTriggered, onUpdated, reactive, ref, toRefs } from "vue"
+import { computed, onMounted, onRenderTriggered, onUpdated, reactive, ref, toRefs, watch } from "vue"
 interface DataProps {
   count: number;
   doubleCount: number;
@@ -7,20 +7,6 @@ interface DataProps {
 }
 export default {
   name: 'App',
-  // setup() {
-  //   const count = ref(0)
-  //   const doubleCount = computed(() => {
-  //     return count.value * 2
-  //   })
-  //   const increaseOne = () => {
-  //     count.value++
-  //   }
-  //   return {
-  //     count,
-  //     doubleCount,
-  //     increaseOne
-  //   }  
-  // }
   setup() {
     onMounted(() => {
       console.log('mounted');
@@ -39,9 +25,19 @@ export default {
       doubleCount: computed(() => clickCountData.count * 2)
     })
     const refClickCountData = toRefs(clickCountData)
-    return {
-      ...refClickCountData
+    const welcomeStr = ref('')
+    const updateWelcomeStr = () => {
+      welcomeStr.value += 'Hello'
     }
+    watch([welcomeStr, () => clickCountData.count], (o, n) => {
+      document.title = welcomeStr.value
+    })
+    return {
+      ...refClickCountData,
+      welcomeStr,
+      updateWelcomeStr
+    }
+
   }
 }
 </script>
@@ -49,7 +45,9 @@ export default {
 <template>
   <h1>{{ count }}</h1>
   <h1>{{ doubleCount }}</h1>
+  <h1>{{ welcomeStr }}</h1>
   <button @click="increaseOne">+++</button>
+  <button @click="updateWelcomeStr">updateTitle</button>
 </template>
 
 <style>
