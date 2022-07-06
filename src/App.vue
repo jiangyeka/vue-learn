@@ -2,16 +2,24 @@
 import { computed, onMounted, onRenderTriggered, onUpdated, defineComponent, reactive, ref, toRefs, watch, onUnmounted } from "vue"
 import useGetMouseAxis from './hooks/useGetMouseAxis'
 import useUrlLoader from './hooks/useUrlLoader'
+import Modal from './components/Modal.vue'
 const component = defineComponent({
   data() {
     return {}
   }
 })
+interface Result {
+  message: string,
+  status: string
+}
 export default {
-  name: 'App',
+  name: "App",
   setup() {
-    const { x, y } = useGetMouseAxis()
-    const { loading, error, loaded, result } = useUrlLoader('https://dog.ceo/api/breeds/image/random')
+    const { x, y } = useGetMouseAxis();
+    const { loading, error, loaded, result } = useUrlLoader<Result>("https://dog.ceo/api/breeds/image/random");
+    watch(result,()=>{
+      result.value?.message
+    })
     return {
       x,
       y,
@@ -19,9 +27,9 @@ export default {
       error,
       loaded,
       result
-
-    }
-  }
+    };
+  },
+  components: { Modal }
 }
 </script>
 
@@ -32,6 +40,7 @@ export default {
   <h1>{{ loading }}</h1>
   <h1>{{ error }}</h1>
   <img :src="result.message" alt="">
+  <Modal />
 </template>
 
 <style>
