@@ -8,18 +8,13 @@ const component = defineComponent({
     return {}
   }
 })
-interface Result {
-  message: string,
-  status: string
-}
+
 export default {
   name: "App",
   setup() {
     const { x, y } = useGetMouseAxis();
-    const { loading, error, loaded, result } = useUrlLoader<Result>("https://dog.ceo/api/breeds/image/random");
-    watch(result,()=>{
-      result.value?.message
-    })
+    const { loading, error, loaded, result } = useUrlLoader("https://dog.ceo/api/breeds/image/random");
+
     return {
       x,
       y,

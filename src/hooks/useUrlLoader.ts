@@ -1,8 +1,8 @@
 import axios from "axios";
 import { ref } from "vue";
 
-function useUrlLoader<T>(url: string) {
-    const result = ref<T | null>(null)
+function useUrlLoader(url: string) {
+    const result = ref(null)
     const loading = ref(true)
     const loaded = ref(false)
     const error = ref(null)
