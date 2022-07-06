@@ -1,20 +1,35 @@
 <script lang="ts">
-import { computed, ref } from "vue"
-
+import { computed, reactive, ref, toRefs } from "vue"
+interface DataProps {
+  count: number;
+  doubleCount: number;
+  increaseOne: () => void
+}
 export default {
   name: 'App',
+  // setup() {
+  //   const count = ref(0)
+  //   const doubleCount = computed(() => {
+  //     return count.value * 2
+  //   })
+  //   const increaseOne = () => {
+  //     count.value++
+  //   }
+  //   return {
+  //     count,
+  //     doubleCount,
+  //     increaseOne
+  //   }
+  // }
   setup() {
-    const count = ref(0)
-    const doubleCount = computed(() => {
-      return count.value * 2
+    const clickCountData:DataProps = reactive({
+      count: 0,
+      increaseOne: () => { clickCountData.count++ },
+      doubleCount: computed(() => clickCountData.count * 2)
     })
-    const increaseOne = () => {
-      count.value++
-    }
+    const refClickCountData = toRefs(clickCountData)
     return {
-      count,
-      doubleCount,
-      increaseOne
+      ...refClickCountData
     }
   }
 }
