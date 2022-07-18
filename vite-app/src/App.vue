@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import RefTest from './components/RefTest.vue'
+import ComputedTest from './components/ComputedTest.vue'
 </script>
 
 <template>
  <div>
-  <ref-test/>
+  <computed-test/>
  </div>
 </template>
 
