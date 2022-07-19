@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import ComputedTest from './components/ComputedTest.vue'
+import {useTestStore} from'./store/index'
+const Test=useTestStore()
+const change=()=>{
+  Test.changeName()
+}
+
 </script>
 
 <template>
  <div>
-  <computed-test/>
+{{Test.current}}
+{{Test.name}}
+<button @click="change">change</button>
  </div>
 </template>
 
